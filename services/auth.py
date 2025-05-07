@@ -36,6 +36,7 @@ def _create_session_cookie(user_id: int):
 
     cookies[COOKIE_NAME] = {"value": token, "max_age": 30 * 24 * 60 * 60}
     cookies.save()
+    st.session_state.user_id = user_id
 
 def destroy_session_cookie():
     cookies[COOKIE_NAME] = {"value": "", "max_age": 0}

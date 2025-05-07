@@ -9,7 +9,7 @@ def render() -> None:
     with st.sidebar:
 
         if LOGO_PATH.exists():
-            st.image(str(LOGO_PATH), use_column_width=True)
+            st.image(str(LOGO_PATH), use_container_width=True)
 
         st.markdown("---")
 
