@@ -1,72 +1,73 @@
 :root {
-  --background-color: #0d0d0d;
-  --surface-color: #1a1a1a;
-  --text-color: #c0c0c0;
-  --accent-color: #ff00ff;
-  --highlight-color: #00fff0;
-  --warning-color: #ffc300;
-  --border-color: #333333;
-  --accent-hover: #cc00cc;
-}
-
-.stApp {
-  background-color: var(--background-color);
-  color: var(--text-color);
-}
-
-/* ---- Auth Forms ---- */
-
-div[data-testid="stHeadingWithActionElements"] {
-  text-align: center;
-}
-
-div[data-testid="stForm"] {
-  width: 100%;
-  max-width: 600px;
-  margin: 1rem auto 0.5rem;
-  padding: 1.5rem;
-  background-color: #1e1e1e;
-  border-radius: 0.5rem;
-}
-
-label[data-testid="stWidgetLabel"] p {
-  color: var(--text-color);
-  text-align: left;
-  font-size: 1rem;
-}
-
-button[data-testid="baseButton-secondaryFormSubmit"] {
-  display: block;
-  width: 100%;
-  margin-top: 0.4rem;
-  padding: 0.4rem 1rem;
-  color: var(--text-color);
-  border: 1px solid var(--text-color);
-  border-radius: 0.25rem;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-}
-
-button[data-testid="baseButton-secondaryFormSubmit"]:hover,
-button[data-testid="baseButton-secondaryFormSubmit"]:focus {
-  border-color: var(--accent-hover);
-  outline: none;
-}
-
-button[data-testid="baseButton-secondaryFormSubmit"] p {
-  font-size: 1.2rem;
-}
-
-button[data-testid="baseButton-secondaryFormSubmit"]:hover p,
-button[data-testid="baseButton-secondaryFormSubmit"]:focus p {
-  color: var(--accent-hover);
-}
-
-div[data-testid="stMarkdownContainer"] {
-  width: 100%;
-  text-align: center;
-}
-
-div[data-testid="stMarkdownContainer"] a {
-  color: var(--highlight-color);
-}
+    --background-color: #0d0d0d;
+    --surface-color: #1a1a1a;
+    --text-color: #c0c0c0;
+    --accent-color: #ff00ff;
+    --highlight-color: #00fff0;
+    --warning-color: #ffc300;
+    --border-color: #333333;
+    --accent-hover: #cc00cc;
+  }
+  
+  .stApp {
+    background-color: var(--background-color);
+    color: var(--text-color);
+  }
+  
+  /* ---- Auth Forms ---- */
+  
+  div[data-testid="stHeadingWithActionElements"] {
+    text-align: center;
+  }
+  
+  div[data-testid="stForm"] {
+    width: 100%;
+    max-width: 600px;
+    margin: 1rem auto 0.5rem;
+    padding: 1.5rem;
+    background-color: #1e1e1e;
+    border-radius: 0.5rem;
+  }
+  
+  label[data-testid="stWidgetLabel"] p {
+    color: var(--text-color);
+    text-align: left;
+    font-size: 1rem;
+  }
+  
+  button[data-testid="baseButton-secondaryFormSubmit"] {
+    display: block;
+    width: 100%;
+    margin-top: 0.4rem;
+    padding: 0.4rem 1rem;
+    color: var(--text-color);
+    border: 1px solid var(--text-color);
+    border-radius: 0.25rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+  
+  button[data-testid="baseButton-secondaryFormSubmit"]:hover,
+  button[data-testid="baseButton-secondaryFormSubmit"]:focus {
+    border-color: var(--accent-hover);
+    outline: none;
+  }
+  
+  button[data-testid="baseButton-secondaryFormSubmit"] p {
+    font-size: 1.2rem;
+  }
+  
+  button[data-testid="baseButton-secondaryFormSubmit"]:hover p,
+  button[data-testid="baseButton-secondaryFormSubmit"]:focus p {
+    color: var(--accent-hover);
+  }
+  
+  div[data-testid="stMarkdownContainer"] {
+    width: 100%;
+    text-align: center;
+  }
+  
+  div[data-testid="stMarkdownContainer"] a {
+    color: var(--highlight-color);
+  }
+  
