@@ -7,6 +7,7 @@ def init_state() -> None:
     if "logged_in" not in st.session_state:
         st.session_state.logged_in = False
         st.session_state.email = ""
+        st.session_state.user_id = None
 
         user_id = check_persistent_login()
         if user_id:
@@ -15,12 +16,15 @@ def init_state() -> None:
                 if user:
                     st.session_state.logged_in = True
                     st.session_state.email = user.email
+                    st.session_state.user_id = user.id
 
-def login(email: str):
+def login(email: str, user_id: int):
     st.session_state.logged_in = True
     st.session_state.email = email
+    st.session_state.user_id = user_id
 
 def logout():
     destroy_session_cookie()
     st.session_state.logged_in = False
     st.session_state.email = ""
+    st.session_state.user_id = None

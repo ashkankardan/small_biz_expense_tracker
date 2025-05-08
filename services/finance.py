@@ -1,27 +1,32 @@
 import datetime as dt
+from datetime import timezone
 from collections import namedtuple
 from sqlalchemy.orm import Session
 from sqlalchemy import func
 from models.expense import Expense
 from models.budget import DailyBudget, WeeklyBudget, MonthlyBudget
+import streamlit as st
 
 Summary = namedtuple("Summary", "period_label spent budget color")
 
 def _period_edges(period: str, today: dt.date) -> tuple[dt.datetime, dt.datetime]:
+    local_start = dt.datetime.combine(today, dt.time.min)
+    local_end = dt.datetime.combine(today, dt.time.max)
+    
     if period == "daily":
-        start = dt.datetime.combine(today, dt.time.min)
-        end = dt.datetime.combine(today, dt.time.max)
+        start = local_start.astimezone(timezone.utc)
+        end = local_end.astimezone(timezone.utc)
     elif period == "weekly":
         start_of_week = today - dt.timedelta(days=today.weekday())
-        end_of_week   = start_of_week + dt.timedelta(days=6)
-        start = dt.datetime.combine(start_of_week, dt.time.min)
-        end = dt.datetime.combine(end_of_week,   dt.time.max)
+        end_of_week = start_of_week + dt.timedelta(days=6)
+        start = dt.datetime.combine(start_of_week, dt.time.min).astimezone(timezone.utc)
+        end = dt.datetime.combine(end_of_week, dt.time.max).astimezone(timezone.utc)
     elif period == "monthly":
         start_of_month = today.replace(day=1)
         next_month = start_of_month.replace(day=28) + dt.timedelta(days=4)
         last_day = next_month - dt.timedelta(days=next_month.day)
-        start = dt.datetime.combine(start_of_month, dt.time.min)
-        end = dt.datetime.combine(last_day, dt.time.max)
+        start = dt.datetime.combine(start_of_month, dt.time.min).astimezone(timezone.utc)
+        end = dt.datetime.combine(last_day, dt.time.max).astimezone(timezone.utc)
     else:
         raise ValueError(period)
     return start, end
@@ -38,6 +43,7 @@ def get_budget_summary(session: Session, user_id: int) -> list[Summary]:
 
     for key, model, label in mapping:
         start, end = _period_edges(key, today)
+        
         spent = (
             session.query(Expense)
             .filter(Expense.user_id == user_id,

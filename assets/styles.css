@@ -35,7 +35,7 @@
     font-size: 1rem;
   }
   
-  button[data-testid="baseButton-secondaryFormSubmit"] {
+  button[data-testid="baseButton-secondaryFormSubmit"], button[data-testid="stBaseButton-secondaryFormSubmit"] {
     display: block;
     width: 100%;
     margin-top: 0.4rem;
