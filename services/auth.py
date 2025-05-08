@@ -13,14 +13,12 @@ from services.cookies import cookies
 
 COOKIE_NAME = "sbet_auth"
 
-# ---------- password helpers ----------
 def hash_password(raw_password: str) -> bytes:
     return bcrypt.hashpw(raw_password.encode(), bcrypt.gensalt())
 
 def verify_password(raw_password: str, hashed: bytes) -> bool:
     return bcrypt.checkpw(raw_password.encode(), hashed)
 
-# ---------- persistent cookie helpers ----------
 def _to_utc_aware(d: dt.datetime) -> dt.datetime:
     if d.tzinfo is None:
         return d.replace(tzinfo=dt.timezone.utc)
@@ -58,7 +56,6 @@ def check_persistent_login():
             return record.user_id
     return None
 
-# ---------- public API ----------
 def register_user(email: str, raw_password: str) -> tuple[bool, str]:
     email_pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
     if not re.match(email_pattern, email):

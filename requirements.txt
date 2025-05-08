@@ -1,11 +1,15 @@
 bcrypt==4.3.0
 black==25.1.0
 isort==6.0.1
+kaleido==0.2.1
 pandas==2.2.3
-plotly==6.0.1
+plotly==5.23.0
 pytest==8.3.5
 pytest-cov==6.1.1
+pytz==2025.2
 reportlab==4.4.0
 streamlit==1.45.0
 streamlit-cookies-manager==0.2.0
+streamlit-javascript==0.1.5
 SQLAlchemy==2.0.40
+tzlocal==5.3.1

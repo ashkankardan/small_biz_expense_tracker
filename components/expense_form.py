@@ -8,6 +8,7 @@ from database import SessionLocal
 from models.category import Category
 from models.expense import Expense
 
+
 def _currency_to_decimal(text: str) -> Decimal | None:
     try:
         clean = text.replace("$", "").replace(",", "").strip()
@@ -33,11 +34,11 @@ def add_expense_form(user_id: int) -> None:
         return
 
     with st.form("expense_form", clear_on_submit=True):
-        date     = st.date_input("Date", value=dt.date.today(), format="MM/DD/YYYY")
-        amount_t = st.text_input("Amount", placeholder="$0.00")
+        date     = st.date_input("Date:", value=dt.date.today(), format="MM/DD/YYYY")
+        amount_t = st.text_input("Amount:", placeholder="$0.00")
         cat_dict = {c.name: c.id for c in categories}
-        cat_name = st.selectbox("Category", options=list(cat_dict.keys()))
-        desc     = st.text_area("Description", placeholder="Description of the expense…")
+        cat_name = st.selectbox("Category:", options=list(cat_dict.keys()))
+        desc     = st.text_area("Description:", placeholder="Description of the expense…")
 
         submitted = st.form_submit_button("Submit")
 
