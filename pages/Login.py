@@ -2,6 +2,8 @@ import streamlit as st
 from services.auth import authenticate_user
 from services.session_state import login
 from services.router import guard_page, SIGNUP_PAGE, HOME_PAGE
+from database import SessionLocal
+from models.user import User
 import os
 
 guard_page("pages/Login.py")
@@ -14,6 +16,7 @@ def load_css(css_file):
 css_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'assets', 'styles.css')
 load_css(css_path)
 
+
 st.title("Login")
 
 with st.form("auth_form"):
@@ -23,10 +26,13 @@ with st.form("auth_form"):
     if submitted:
         if not email or not password:
             st.error("Please fill in both email and password fields.")
-        elif authenticate_user(email, password):
-            login(email)
-            st.switch_page(HOME_PAGE)
         else:
-            st.error("Invalid credentials.")
+            with SessionLocal() as db:
+                user = db.query(User).filter(User.email == email).first()
+                if user and authenticate_user(email, password):
+                    login(email, user.id)
+                    st.switch_page(HOME_PAGE)
+                else:
+                    st.error("Invalid credentials.")
 
 st.markdown('<div class="auth-link">Don\'t have an account? <a href="/Signup" target="_self">Sign up here!</a></div>', unsafe_allow_html=True)
