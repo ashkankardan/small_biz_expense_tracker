@@ -7,6 +7,9 @@ import os
 
 guard_page("pages/Add_New.py")
 
+if not st.session_state.logged_in:
+    st.stop()
+
 def load_css(css_file):
     with open(css_file, 'r') as f:
         css = f.read()
@@ -15,18 +18,9 @@ def load_css(css_file):
 css_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'assets', 'styles.css')
 load_css(css_path)
 
-
-if st.session_state.logged_in:
-    sidebar()
-
-    show_budget_summary(st.session_state.user_id)
-
-    st.markdown("---")
-
-    add_expense_form(st.session_state.user_id)
-
-else:
-    st.stop()
-
+sidebar()
+show_budget_summary(st.session_state.user_id)
+st.markdown("---")
+add_expense_form(st.session_state.user_id)
 
 

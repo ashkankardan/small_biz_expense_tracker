@@ -35,7 +35,8 @@
     font-size: 1rem;
   }
   
-  button[data-testid="baseButton-secondaryFormSubmit"], button[data-testid="stBaseButton-secondaryFormSubmit"] {
+  button[data-testid="baseButton-secondaryFormSubmit"],
+  button[data-testid="stBaseButton-secondaryFormSubmit"] {
     display: block;
     width: 100%;
     margin-top: 0.4rem;
@@ -48,17 +49,22 @@
   }
   
   button[data-testid="baseButton-secondaryFormSubmit"]:hover,
-  button[data-testid="baseButton-secondaryFormSubmit"]:focus {
+  button[data-testid="baseButton-secondaryFormSubmit"]:focus,
+  button[data-testid="stBaseButton-secondaryFormSubmit"]:hover,
+  button[data-testid="stBaseButton-secondaryFormSubmit"]:focus {
     border-color: var(--accent-hover);
     outline: none;
   }
   
-  button[data-testid="baseButton-secondaryFormSubmit"] p {
+  button[data-testid="baseButton-secondaryFormSubmit"] p,
+  button[data-testid="stBaseButton-secondaryFormSubmit"] p {
     font-size: 1.2rem;
   }
   
   button[data-testid="baseButton-secondaryFormSubmit"]:hover p,
-  button[data-testid="baseButton-secondaryFormSubmit"]:focus p {
+  button[data-testid="baseButton-secondaryFormSubmit"]:focus p,
+  button[data-testid="stBaseButton-secondaryFormSubmit"]:hover p,
+  button[data-testid="stBaseButton-secondaryFormSubmit"]:focus p {
     color: var(--accent-hover);
   }
   
