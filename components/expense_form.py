@@ -69,5 +69,5 @@ def add_expense_form(user_id: int) -> None:
             db.commit()
 
         st.success("Expense added successfully!")
-        time.sleep(1)
+        time.sleep(2)
         st.rerun()

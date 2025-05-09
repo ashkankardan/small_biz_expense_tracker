@@ -84,11 +84,9 @@ def build_pdf(expenses, tz_str: str) -> bytes:
 
 def line_chart_from_expenses(expenses, tz_str: str):
     tz = pytz.timezone(tz_str)
-    if not expenses:
-        return None
     df = {
-        "Date": [ex.date.astimezone(tz).date() for ex in expenses],
-        "Amount": [Decimal(ex.amount) for ex in expenses],
+        "Date": [ex.date.astimezone(tz).date() for ex in expenses] if expenses else [],
+        "Amount": [Decimal(ex.amount) for ex in expenses] if expenses else [],
     }
     fig = px.line(df, x="Date", y="Amount", markers=True)
     fig.update_layout(
