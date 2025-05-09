@@ -29,10 +29,14 @@ with st.form("auth_form"):
         else:
             with SessionLocal() as db:
                 user = db.query(User).filter(User.email == email).first()
-                if user and authenticate_user(email, password):
+                success, status = authenticate_user(email, password, redirect=False)
+                if success:
                     login(email, user.id)
                     st.switch_page(HOME_PAGE)
                 else:
-                    st.error("Invalid credentials.")
+                    if status == "invalid_email":
+                        st.error("Invalid email format. Please enter a valid email address (e.g., user@example.com)")
+                    elif status == "invalid_credentials":
+                        st.error("Invalid credentials.")
 
 st.markdown('<div class="auth-link">Don\'t have an account? <a href="/Signup" target="_self">Sign up here!</a></div>', unsafe_allow_html=True)
