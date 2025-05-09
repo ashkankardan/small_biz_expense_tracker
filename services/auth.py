@@ -61,6 +61,9 @@ def check_persistent_login():
     return None
 
 def register_user(email: str, raw_password: str) -> tuple[bool, str]:
+    if not email or not raw_password:
+        return False, "missing_fields"
+
     email_pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
     if not re.match(email_pattern, email):
         return False, "invalid_email"
