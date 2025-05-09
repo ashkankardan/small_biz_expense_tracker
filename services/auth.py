@@ -16,8 +16,12 @@ COOKIE_NAME = "sbet_auth"
 def hash_password(raw_password: str) -> bytes:
     return bcrypt.hashpw(raw_password.encode(), bcrypt.gensalt())
 
-def verify_password(raw_password: str, hashed: bytes) -> bool:
-    return bcrypt.checkpw(raw_password.encode(), hashed)
+def verify_password(raw_password: str, hashed) -> bool:
+    if isinstance(hashed, str):
+        hashed = hashed.encode('utf-8')
+    if isinstance(raw_password, str):
+        raw_password = raw_password.encode('utf-8')
+    return bcrypt.checkpw(raw_password, hashed)
 
 def _to_utc_aware(d: dt.datetime) -> dt.datetime:
     if d.tzinfo is None:
@@ -73,10 +77,24 @@ def register_user(email: str, raw_password: str) -> tuple[bool, str]:
             db.rollback()
             return False, "email_exists"
 
-def authenticate_user(email: str, raw_password: str) -> bool:
-    with SessionLocal() as db:
+def authenticate_user(email: str, raw_password: str, db=None, redirect=True) -> tuple[bool, str]:
+    email_pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
+    if not re.match(email_pattern, email):
+        return False, "invalid_email"
+    
+    should_close_db = False
+    if db is None:
+        db = SessionLocal()
+        should_close_db = True
+    
+    try:
         user = db.query(User).filter(User.email == email).first()
         if user and verify_password(raw_password, user.password_hash):
             _create_session_cookie(user.id)
-            return True
-        return False
+            if redirect:
+                st.switch_page("pages/1_Add_New.py")
+            return True, "success"
+        return False, "invalid_credentials"
+    finally:
+        if should_close_db:
+            db.close()
