@@ -21,8 +21,6 @@ with st.form("signup_form"):
     password = st.text_input("Password:", type="password")
     submitted = st.form_submit_button("Sign Up")
     if submitted:
-        if not email or not password:
-            st.error("Please fill in both email and password fields.")
         success, status = register_user(email, password)
         if success:
             st.switch_page(LOGIN_PAGE)
@@ -31,5 +29,7 @@ with st.form("signup_form"):
                 st.error("Invalid email format. Please enter a valid email address (e.g., user@example.com)")
             elif status == "email_exists":
                 st.error("Email already registered.")
+            elif status == "missing_fields":
+                st.error("Please fill in both email and password fields.")
 
 st.markdown('<div class="auth-link">Already have an account? <a href="/Login" target="_self">Log in here!</a></div>', unsafe_allow_html=True)
