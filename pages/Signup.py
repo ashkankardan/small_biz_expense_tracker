@@ -5,15 +5,19 @@ import os
 
 guard_page("pages/Signup.py")
 
+
 def load_css(css_file):
     with open(css_file, 'r') as f:
         css = f.read()
     st.markdown(f'<style>{css}</style>', unsafe_allow_html=True)
 
-css_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'assets', 'styles.css')
+
+css_path = os.path.join(os.path.dirname(
+    os.path.dirname(__file__)), 'assets', 'styles.css')
 load_css(css_path)
 
 
+st.title("Hello World!")
 st.title("Sign Up")
 
 with st.form("signup_form"):
@@ -26,7 +30,8 @@ with st.form("signup_form"):
             st.switch_page(LOGIN_PAGE)
         else:
             if status == "invalid_email":
-                st.error("Invalid email format. Please enter a valid email address (e.g., user@example.com)")
+                st.error(
+                    "Invalid email format. Please enter a valid email address (e.g., user@example.com)")
             elif status == "email_exists":
                 st.error("Email already registered.")
             elif status == "missing_fields":
